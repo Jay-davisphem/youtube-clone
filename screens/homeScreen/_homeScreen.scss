@@ -1,0 +1,8 @@
+@import "../../base.scss";
+
+.app {
+  &__main {
+    background: $black_primary;
+    color: $text_color;
+  }
+}
