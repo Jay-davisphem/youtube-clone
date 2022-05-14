@@ -10,7 +10,8 @@ import {
 } from "react-icons/md";
 const Sidebar = ({ handleSidebar, isSidebar }) => {
   return (
-    <nav className={isSidebar ? "sidebar open" : "sidebar"}
+    <nav
+      className={isSidebar ? "sidebar open" : "sidebar"}
       onClick={() => handleSidebar()}
     >
       <li>
