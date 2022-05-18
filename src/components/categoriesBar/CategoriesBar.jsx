@@ -33,7 +33,11 @@ function CategoriesBar() {
   return (
     <div className="categoriesBar">
       {keywords.map((val, i) => (
-        <span key={i} onClick={() => handleClick(val)} className={activeElement === val? 'active': ''}>
+        <span
+          key={i}
+          onClick={() => handleClick(val)}
+          className={activeElement === val ? "active" : ""}
+        >
           {val}
         </span>
       ))}
