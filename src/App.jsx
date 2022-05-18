@@ -3,6 +3,7 @@ import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import Categoriesbar from "./components/categoriesBar/CategoriesBar";
 import HomeScreen from "./screens/homeScreen/HomeScreen";
+import LoginScreen from './screens/loginScreen/LoginScreen'
 import { Container } from "react-bootstrap";
 import "./_app.scss";
 
@@ -11,7 +12,7 @@ function App() {
 
   const handleSidebar = () => setIsSidebar((value) => !value);
   return (
-    <>
+    {/*<>
       <Header handleSidebar={handleSidebar} />
       <div className="app__container">
         <Sidebar isSidebar={isSidebar} handleSidebar={handleSidebar} />
@@ -19,7 +20,8 @@ function App() {
           <HomeScreen />
         </Container>
       </div>
-    </>
+    </>*/},
+    <LoginScreen />
   );
 }
 
