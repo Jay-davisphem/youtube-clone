@@ -15,12 +15,13 @@ export function login() {
       const provider = new firebase.auth.GoogleAuthProvider();
 
       const res = await auth.signInWithPopup(provider);
-      console.log(res);
       const accessToken = res.credential.accessToken;
       const profile = {
         name: res.additionalUserInfo.profile.name,
         photoURL: res.additionalUserInfo.profile.picture,
       };
+      sessionStorage.setItem("ytapp-clone-access-token", accessToken);
+      sessionStorage.setItem("ytapp-clone-user", JSON.stringify(profile));
       dispatch({
         type: LOGIN_SUCCESS,
         payload: accessToken,

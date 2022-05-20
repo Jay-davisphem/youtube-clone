@@ -4,9 +4,12 @@ import {
   LOAD_PROFILE,
   LOGIN_FAIL,
 } from "../actionTypes";
+
+const user = sessionStorage.getItem("ytapp-clone-user");
+
 const initialState = {
-  accessToken: null,
-  user: null,
+  accessToken: sessionStorage.getItem("ytapp-clone-access-token") || null,
+  user: user ? JSON.parse(user) : null,
   loading: false,
 };
 export function authReducer(prevState = initialState, action) {

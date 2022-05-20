@@ -1,5 +1,5 @@
 import { Container, Col, Row } from "react-bootstrap";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 import Video from "../../components/video/Video";
 import CategoriesBar from "../../components/categoriesBar/CategoriesBar";
 import "./_homeScreen.scss";
