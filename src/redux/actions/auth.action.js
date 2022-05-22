@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOAD_PROFILE,
   LOGIN_FAIL,
+  LOG_OUT,
 } from "../actionTypes";
 
 export function login() {
@@ -39,3 +40,12 @@ export function login() {
     }
   };
 }
+
+export const logout = () => async (dispatch) => {
+  await auth.signOut();
+  dispatch({
+    type: LOG_OUT,
+  });
+  sessionStorage.removeItem("ytapp-clone-access-token");
+  sessionStorage.removeItem("ytapp-clone-user");
+};

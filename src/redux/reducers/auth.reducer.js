@@ -3,6 +3,7 @@ import {
   LOGIN_SUCCESS,
   LOAD_PROFILE,
   LOGIN_FAIL,
+  LOG_OUT,
 } from "../actionTypes";
 
 const user = sessionStorage.getItem("ytapp-clone-user");
@@ -12,6 +13,7 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   loading: false,
 };
+
 export function authReducer(prevState = initialState, action) {
   const { type, payload } = action;
   switch (type) {
@@ -28,6 +30,8 @@ export function authReducer(prevState = initialState, action) {
       };
     case LOAD_PROFILE:
       return { ...prevState, user: payload };
+    case LOG_OUT:
+      return { ...prevState, accessToken: null, user: null };
     default:
       return prevState;
   }
