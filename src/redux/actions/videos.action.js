@@ -1,4 +1,8 @@
-import { HOME_VIDEOS_REQUEST , HOME_VIDEOS_SUCCESS, HOME_VIDEOS_FAIL } from "../actionTypes";
+import {
+  HOME_VIDEOS_REQUEST,
+  HOME_VIDEOS_SUCCESS,
+  HOME_VIDEOS_FAIL,
+} from "../actionTypes";
 import request from "../../api";
 
 export const getPopularVideos = () => async (dispatch) => {
@@ -11,22 +15,22 @@ export const getPopularVideos = () => async (dispatch) => {
         part: "snippet,contentDetails,statistics",
         chart: "mostPopular",
         regionCode: "NG",
-        maxResults: 5,
+        maxResults: 10,
         pageToken: "",
       },
     });
     dispatch({
       type: HOME_VIDEOS_SUCCESS,
       payload: {
-        videos: datat.items,
+        videos: data.items,
         nextPageToken: data.nextPageToken,
-      }
-    })
+      },
+    });
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
     dispatch({
       type: HOME_VIDEOS_FAIL,
-      payload: error.message
-    })
+      payload: error.message,
+    });
   }
 };

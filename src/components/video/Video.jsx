@@ -1,31 +1,84 @@
+import { useEffect, useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import "./_video.scss";
+import request from "../../api";
+import moment from "moment";
+import numeral from "numeral";
+function Video({ video }) {
+  const {
+    id,
+    snippet: {
+      channelId,
+      channelTitle,
+      title,
+      publishedAt,
+      thumbnails: { medium },
+    },
+  } = video;
 
-function Video() {
+  const [views, setViews] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const [channelIcon, setChannelIcon] = useState(null)
+  const handleDetails = (_duration, _views) => {
+    const seconds = moment.duration(_duration).asSeconds();
+    setDuration(moment.utc(seconds * 1000).format("mm:ss"));
+
+    setViews(numeral(_views).format("0.a"));
+  };
+
+  useEffect(() => {
+    const get_videos_details = async () => {
+      const {
+        data: { items },
+      } = await request("/videos", {
+        params: {
+          part: "contentDetails,statistics",
+          id: id,
+        },
+      });
+      console.log(items);
+      handleDetails(
+        items[0].contentDetails.duration,
+        items[0].statistics.viewCount
+      );
+    };
+    get_videos_details();
+  }, [id]);
+
+  useEffect(() => {
+    const get_channel_icon = async () => {
+      const {
+        data: { items },
+      } = await request("/channels", {
+        params: {
+          part: "snippet",
+          id: channelId,
+        },
+      });
+      setChannelIcon(items[0].snippet.thumbnails.default)
+    };
+    get_channel_icon()
+  }, [channelId]);
+
   return (
     <div className="video">
       <div className="video__top">
-        <img
-          src="https://i.ytimg.com/vi/ZdrfvtT1Ets/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBzmWpuOXAN8CqEkb1GdzBG7b3CqQ"
-          alt=""
-        />
-        <span>01:00</span>
+        <img src={medium.url} alt="" />
+        <span>{duration}</span>
       </div>
-      <div className="video__title">
-        React and Django in 1 minute :), Now you know know know
-      </div>
+      <div className="video__title">{title}</div>
       <div className="video__details">
         <span>
-          <AiFillEye /> 100m views
+          <AiFillEye /> {views} views
         </span>
-        <span>1 days ago</span>
+        <span>{moment(publishedAt).fromNow()} ago</span>
       </div>
       <div className="video__channel">
         <img
-          src="https://yt3.ggpht.com/ytc/AKedOLRR2uNiXJiFH-XRmtGgkdICxTuDJxCPJidKFRNCNg=s68-c-k-c0x00ffffff-no-rj"
+          src={channelIcon?.url}
           alt=""
         />
-        <p>Exclusive davisphem</p>
+        <p>{channelTitle}</p>
       </div>
     </div>
   );

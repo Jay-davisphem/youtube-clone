@@ -15,12 +15,12 @@
       width: 100%;
     }
     span {
-      postition: absolute;
+      position: absolute;
 
-      bottom: 0.3rem;
-      right: 0.3rem;
+      bottom: 0.1rem;
+      left: 0.3rem;
 
-      padding: 0.2rem;
+      padding: 0.5rem;
       background: #080808ec;
       border-radius: 3px;
     }
@@ -33,6 +33,7 @@
   &__details {
     display: flex;
     align-items: center;
+    margin-top: 0;
   }
   &__channel {
     display: flex;
